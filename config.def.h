@@ -6,6 +6,7 @@ static char *styledir       = "~/.surf/styles/";
 static char *certdir        = "~/.surf/certificates/";
 static char *cachedir       = "~/.surf/cache/";
 static char *cookiefile     = "~/.surf/cookies.txt";
+static char *externalpipe_sigusr1[] = {"/bin/sh", "-c", "externalpipe_buffer.sh surf_strings_read"};
 
 /* Webkit default features */
 /* Highest priority value will be used.
