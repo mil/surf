@@ -1921,6 +1921,8 @@ clipboard(Client *c, const Arg *a)
 		gtk_clipboard_set_text(gtk_clipboard_get(
 		                       GDK_SELECTION_PRIMARY), c->targeturi
 		                       ? c->targeturi : geturi(c), -1);
+  	Arg a = {.v = (const char *[]){ "/bin/sh", "-c", "notify-send Copied: $0", c->targeturi ? c->targeturi : geturi(c) , NULL } };
+		spawn(c, &a);
 	}
 }
 
