@@ -716,11 +716,11 @@ updatetitle(Client *c)
 		getpagestats(c);
 
 		if (c->progress != 100)
-			title = g_strdup_printf("[%i%%] %s:%s | %s",
-			        c->progress, togglestats, pagestats, name);
+			title = g_strdup_printf("[%i%%] %s%s | %s:%s",
+			        c->progress, insertmode == 1 ? "[I] " : "", name, togglestats, pagestats);
 		else
-			title = g_strdup_printf("%s:%s | %s",
-			        togglestats, pagestats, name);
+			title = g_strdup_printf("%s%s | %s:%s",
+			        insertmode == 1 ? "[I] " : "", name,  togglestats, pagestats);
 
 		gtk_window_set_title(GTK_WINDOW(c->win), title);
 		g_free(title);
@@ -2046,6 +2046,7 @@ void
 insert(Client *c, const Arg *a)
 {
 		insertmode = (a->i);
+		updatetitle(c);
 }
 
 void
