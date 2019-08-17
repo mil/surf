@@ -1206,8 +1206,12 @@ newview(Client *c, WebKitWebView *rv)
 /* For more interesting settings, have a look at
  * http://webkitgtk.org/reference/webkit2gtk/stable/WebKitSettings.html */
 
+		char *ua;
+		ua = getenv("SURF_USERAGENT");
 		if (strcmp(fulluseragent, "")) {
 			webkit_settings_set_user_agent(settings, fulluseragent);
+		} else if (strcmp(ua, "")) {
+			webkit_settings_set_user_agent(settings, ua);
 		} else if (surfuseragent) {
 			webkit_settings_set_user_agent_with_application_details(
 			    settings, "Surf", VERSION);
