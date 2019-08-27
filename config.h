@@ -60,15 +60,22 @@ static Parameter defconfig[ParameterLast] = {
 	[ZoomLevel]           =       { { .f = 1.0 },   },
 };
 
-static UriParameters uriparams[] = {
-	{ "(://|\\.)suckless\\.org(/|$)", {
-	  [JavaScript] = { { .i = 0 }, 1 },
-	  [Plugins]    = { { .i = 0 }, 1 },
-	}, },
-	{ "https?://clojuredocs.org(/|$)", {
-	  [JavaScript] = { { .i = 1 }, 1 },
-	}, },
-};
+ static UriParameters uriparams[] = {
+ 	{ "(://|\\.)suckless\\.org(/|$)", {
+ 	  [JavaScript] = { { .i = 0 }, 1 },
+ 	  [Plugins]    = { { .i = 0 }, 1 },
+ 	}, },
+ 	{ "https?://clojuredocs.org(/|$)", {
+ 	  [JavaScript] = { { .i = 1 }, 1 },
+ 	}, },
+ 	{ "https?://github.com(/|$)", {
+ 	  [JavaScript] = { { .i = 1 }, 1 },
+ 	}, },
+ 	{ "https?://news.ycombinator.com.com(/|$)", {
+ 	  [ZoomLevel] = { { .i = 1 }, 1 },
+ 	}, },
+ };
+;
 
 /* default window size: width, height */
 static int winsize[] = { 800, 600 };
