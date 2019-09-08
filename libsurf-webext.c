@@ -105,9 +105,24 @@ readpipe(GIOChannel *s, GIOCondition c, gpointer unused)
 	return TRUE;
 }
 
+const char * UA_HEADER_VALUE = NULL;
+const char * UA_HEADER = "USER-AGENT";
+static gboolean
+web_page_send_request (WebKitWebPage *wp, WebKitURIRequest *r, WebKitURIResponse *rr, gpointer unused)
+{
+		SoupMessageHeaders *headers = webkit_uri_request_get_http_headers(r);
+		if (headers) {
+			if (!UA_HEADER_VALUE) { UA_HEADER_VALUE = getenv("SURF_USERAGENT"); }
+			soup_message_headers_remove(headers, UA_HEADER);
+			soup_message_headers_replace(headers, UA_HEADER, UA_HEADER_VALUE);
+		}
+		return FALSE;
+}
+
 static void
 webpagecreated(WebKitWebExtension *e, WebKitWebPage *wp, gpointer unused)
 {
+	g_signal_connect_object (wp, "send-request", G_CALLBACK (web_page_send_request), NULL, 0);
 	Page *p = newpage(wp);
 }
 
