@@ -720,11 +720,10 @@ updatetitle(Client *c)
 		getpagestats(c);
 
 		if (c->progress != 100)
-			title = g_strdup_printf("[%i%%] %s%s | %s:%s",
-			        c->progress, insertmode == 1 ? "[I] " : "", name, togglestats, pagestats);
+			title = g_strdup_printf("[%i%%]%s%s: %s",
+			        c->progress, togglestats, pagestats, name);
 		else
-			title = g_strdup_printf("%s%s | %s:%s",
-			        insertmode == 1 ? "[I] " : "", name,  togglestats, pagestats);
+			title = g_strdup_printf("%s%s: %s", togglestats, pagestats, name);
 
 		gtk_window_set_title(GTK_WINDOW(c->win), title);
 		g_free(title);
@@ -736,25 +735,33 @@ updatetitle(Client *c)
 void
 gettogglestats(Client *c)
 {
-	togglestats[0] = cookiepolicy_set(cookiepolicy_get());
-	togglestats[1] = curconfig[CaretBrowsing].val.i ?   'C' : 'c';
-	togglestats[2] = curconfig[Geolocation].val.i ?     'G' : 'g';
-	togglestats[3] = curconfig[DiskCache].val.i ?       'D' : 'd';
-	togglestats[4] = curconfig[LoadImages].val.i ?      'I' : 'i';
-	togglestats[5] = curconfig[JavaScript].val.i ?      'S' : 's';
-	togglestats[6] = curconfig[Plugins].val.i ?         'V' : 'v';
-	togglestats[7] = curconfig[Style].val.i ?           'M' : 'm';
-	togglestats[8] = curconfig[FrameFlattening].val.i ? 'F' : 'f';
-	togglestats[9] = curconfig[Certificate].val.i ?     'X' : 'x';
-	togglestats[10] = curconfig[StrictTLS].val.i ?      'T' : 't';
-	togglestats[11] = '\0';
+	int i = -1;
+	if (insertmode == 1) { togglestats[++i] = 'I'; }
+	if (cookiepolicy_set(cookiepolicy_get()) != 'a') { togglestats[++i] = cookiepolicy_set(cookiepolicy_get()); }
+	if (curconfig[Geolocation].val.i) { togglestats[++i] = 'G'; };
+	if (curconfig[JavaScript].val.i) { togglestats[++i] = 'J'; };
+	if (!curconfig[StrictTLS].val.i) {togglestats[++i] = 'L'; };
+	togglestats[++i] = '\0';
+
+	//togglestats[0] = cookiepolicy_set(cookiepolicy_get());
+	//togglestats[1] = curconfig[CaretBrowsing].val.i ?   'C' : 'c';
+	//togglestats[2] = curconfig[Geolocation].val.i ?     'G' : 'g';
+	//togglestats[3] = curconfig[DiskCache].val.i ?       'D' : 'd';
+	//togglestats[4] = curconfig[LoadImages].val.i ?      'I' : 'i';
+	//togglestats[5] = curconfig[JavaScript].val.i ?      'S' : 's';
+	//togglestats[6] = curconfig[Plugins].val.i ?         'V' : 'v';
+	//togglestats[7] = curconfig[Style].val.i ?           'M' : 'm';
+	//togglestats[8] = curconfig[FrameFlattening].val.i ? 'F' : 'f';
+	//togglestats[9] = curconfig[Certificate].val.i ?     'X' : 'x';
+	//togglestats[10] = curconfig[StrictTLS].val.i ?      'T' : 't';
+	//togglestats[11] = '\0';
 }
 
 void
 getpagestats(Client *c)
 {
 	if (c->https)
-		pagestats[0] = (c->tlserr || c->insecure) ?  'U' : 'T';
+		pagestats[0] = (c->tlserr || c->insecure) ?  'U' : 'E';
 	else
 		pagestats[0] = '-';
 	pagestats[1] = '\0';
