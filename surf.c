@@ -635,7 +635,8 @@ loaduri(Client *c, const Arg *a)
   if (g_regex_match_simple("\\s*!\\S+\\s*", uri, 0, 0)) {
 		url = g_strdup_printf("%s%s", searchengine, uri);
   } else if (g_regex_match_simple(".*\\s.*", uri, 0, 0)) {
-		url = g_strdup_printf("%s!sp %s", searchengine, uri);
+  	// Default
+		url = g_strdup_printf("%s%s", searchengine, uri);
   } else if (g_str_has_prefix(uri, "http://")  ||
 	    g_str_has_prefix(uri, "https://") ||
 	    g_str_has_prefix(uri, "file://")  ||
