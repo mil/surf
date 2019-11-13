@@ -222,6 +222,9 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_l,      navigate,   { .i = +1 } },
 	{ 0,                     GDK_KEY_h,      navigate,   { .i = -1 } },
 
+	{ GDK_SHIFT_MASK|0,      GDK_KEY_BackSpace, navigate,   { .i = +1 } },
+	{ 0,                     GDK_KEY_BackSpace, navigate,   { .i = -1 } },
+
 	{ 0,                     GDK_KEY_j,      scrollv,    { .i = +10 } },
 	{ 0,                     GDK_KEY_k,      scrollv,    { .i = -10 } },
 
