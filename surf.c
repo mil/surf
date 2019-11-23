@@ -713,18 +713,32 @@ void
 updatetitle(Client *c)
 {
 	char *title;
+	WebKitBackForwardList *lst;
+	int nhistory = 0;
 	const char *name = c->overtitle ? c->overtitle :
 	                   c->title ? c->title : "";
 
 	if (curconfig[ShowIndicators].val.i) {
+    if((lst = webkit_web_view_get_back_forward_list(c->view))) {
+      WebKitBackForwardListItem *n = 1;
+      while (n != NULL) {
+        nhistory++;
+        n = webkit_back_forward_list_get_nth_item(lst, -1 * nhistory);
+      }
+
+      //nhistory = webkit_back_forward_list_get_length(lst);
+  	} else {
+  	   nhistory = 0;
+  	}
+
 		gettogglestats(c);
 		getpagestats(c);
 
 		if (c->progress != 100)
-			title = g_strdup_printf("[%i%%]%s%s: %s",
-			        c->progress, togglestats, pagestats, name);
+			title = g_strdup_printf("[%i%%]%d%s%s: %s",
+			        c->progress, nhistory, togglestats, pagestats, name);
 		else
-			title = g_strdup_printf("%s%s: %s", togglestats, pagestats, name);
+			title = g_strdup_printf("%d%s%s: %s", nhistory, togglestats, pagestats, name);
 
 		gtk_window_set_title(GTK_WINDOW(c->win), title);
 		g_free(title);
