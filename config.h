@@ -249,6 +249,9 @@ static Key keys[] = {
 
 	{ 0,                     GDK_KEY_minus,  zoom,       { .i = -1 } },
 	{ 0,                     GDK_KEY_equal,  zoom,       { .i = +1 } },
+	{ GDK_SHIFT_MASK|0,     GDK_KEY_minus,  zoom,       { .i = -2 } },
+	{ GDK_SHIFT_MASK|0,     GDK_KEY_equal,  zoom,       { .i = +2 } },
+
 	{ 0,                     GDK_KEY_0,  zoom,       { .i = 0 } },
 
 	{ 0,                     GDK_KEY_n,      find,       { .i = +1 } },
