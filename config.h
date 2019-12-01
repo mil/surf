@@ -195,6 +195,7 @@ static SiteSpecific styles[] = {
 	/* regexp               file in $styledir */
 	{ ".*wikipedia.org.*",  "wikipedia.css" },
 	{ ".*stackoverflow.com", "stackoverflow.css" },
+	{ ".*docs.rs", "rustdocs.css" },
 	{ ".*",                 "default.css" },
 };
 static SiteSpecific certs[] = {
