@@ -207,6 +207,7 @@ static SiteSpecific certs[] = {
 
 static Key keys[] = {
 	/* modifier              keyval          function    arg */
+	{ GDK_CONTROL_MASK,                     GDK_KEY_l,      spawn,      SETPROP_URI("_SURF_URI", "_SURF_GO", PROMPT_GO) },
 
 	{ 0,                     GDK_KEY_o,      spawn,      SETPROP_URI("_SURF_URI", "_SURF_GO", PROMPT_GO) },
 	{ GDK_SHIFT_MASK|0,      GDK_KEY_o,      spawn,      SPAWN_NEW("_SURF_URI", "_SURF_GO", PROMPT_GONEW) },
