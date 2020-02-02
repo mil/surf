@@ -230,8 +230,8 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_j,      scrollv,    { .i = +10 } },
 	{ 0,                     GDK_KEY_k,      scrollv,    { .i = -10 } },
 
-	{ 0,                     GDK_KEY_c,      scrollv,    { .i = +1000 } },
-	{ 0,                     GDK_KEY_d,      scrollv,    { .i = -1000 } },
+	{ 0,                     GDK_KEY_c,      toggletitle,    {0} },
+	{ MODKEY,                GDK_KEY_c,      toggletitle,    {0} },
 
 	{ 0,                     GDK_KEY_b,      spawn,      LOADBMK("_SURF_URI", "_SURF_GO", PROMPT_GO)},
 	{ GDK_SHIFT_MASK|0,      GDK_KEY_b,      spawn,      ADDBMK},

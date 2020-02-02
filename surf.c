@@ -176,6 +176,7 @@ static void spawn(Client *c, const Arg *a);
 static void msgext(Client *c, char type, const Arg *a);
 static void destroyclient(Client *c);
 static void cleanup(void);
+static void toggletitle(void);
 static int insertmode = 0;
 
 /* GTK/WebKit */
@@ -257,6 +258,7 @@ static Parameter *curconfig;
 static int modparams[ParameterLast];
 static int pipein[2], pipeout[2];
 char *argv0;
+int toggledtitle = 0;
 
 static ParamName loadtransient[] = {
 	Certificate,
@@ -736,9 +738,9 @@ updatetitle(Client *c)
 
 		if (c->progress != 100)
 			title = g_strdup_printf("[%i%%]%d%s%s: %s",
-			        c->progress, nhistory, togglestats, pagestats, name);
+			        c->progress, nhistory, togglestats, pagestats, toggledtitle ? name : geturi(c));
 		else
-			title = g_strdup_printf("%d%s%s: %s", nhistory, togglestats, pagestats, name);
+			title = g_strdup_printf("%d%s%s: %s", nhistory, togglestats, pagestats, toggledtitle ? name : geturi(c));
 
 		gtk_window_set_title(GTK_WINDOW(c->win), title);
 		g_free(title);
@@ -2058,6 +2060,13 @@ find(Client *c, const Arg *a)
 		if (strcmp(s, "") == 0)
 			webkit_find_controller_search_finish(c->finder);
 	}
+}
+
+void toggletitle() {
+	Client *c;
+  toggledtitle = toggledtitle ? 0 : 1;
+	for (c = clients; c; c = c->next)
+		updatetitle(c);
 }
 
 void
