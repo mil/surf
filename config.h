@@ -17,9 +17,9 @@ static char *string_yank[] =             { "/bin/sh", "-c", "sed -e 's/<[^>]*>//
 static char *piped_find[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) | xargs -IBB -r xprop -id $0 -f _SURF_FIND 8s -set _SURF_FIND 'BB'", winid };
 
 static char *piped_open[] = { "/bin/sh", "-c", 
-  "sed -e 's/<[^>]*>//g' |
-   strings_extract.sh | 
-   dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) | 
+  "sed -e 's/<[^>]*>//g' |\
+   strings_extract.sh |\
+   dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
    xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO
   ", winid
 };
