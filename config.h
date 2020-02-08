@@ -15,8 +15,8 @@ static char *linkselect_urlhandler[] =   { "/bin/sh", "-c", "surf_linkselect.sh 
 static char *codeblock_yank[] =          { "/bin/sh", "-c", "surf_tagyank.sh $0 'Codeblock'", winid };
 static char *string_yank[] =             { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -p Copy -l 10 -i -w $(xdotool getactivewindow) | tr -d '\n' | y", winid };
 static char *piped_find[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) | xargs -IBB -r xprop -id $0 -f _SURF_FIND 8s -set _SURF_FIND 'BB'", winid };
-static char *piped_open[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) | xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO", winid };
-static char *piped_opennew[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) | xargs -r surf", winid };
+static char *piped_open[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) | xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO", winid };
+static char *piped_opennew[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p 'Open (new window)' -l 10 -i -w $(xdotool getactivewindow) | xargs -r surf", winid };
 
 static char *image_select[] =            { "/bin/sh", "-c", "surf_linkselect.sh $0 'Image (new window)' 'img' 'src' 'alt' | xargs -r surf", winid };
 
