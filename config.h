@@ -35,7 +35,15 @@ static char *piped_open[] = { "/bin/sh", "-c",
   winid
 };
 
-static char *piped_opennew[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p 'Open (new window)' -l 10 -i -w $(xdotool getactivewindow) | xargs -r surf", winid };
+static char *piped_opennew[] = { "/bin/sh", "-c", 
+  "sed -e 's/<[^>]*>//g' |\
+   strings_extract.sh |\
+   cat - ~/.ddg_bangs |\
+   dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
+   xargs -IBB -r surf 'BB'
+  ", 
+  winid
+};
 
 static char *image_select[] =            { "/bin/sh", "-c", "surf_linkselect.sh $0 'Image (new window)' 'img' 'src' 'alt' | xargs -r surf", winid };
 
