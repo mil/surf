@@ -30,7 +30,7 @@ static char *piped_open[] = { "/bin/sh", "-c",
    strings_extract.sh |\
    cat - ~/.ddg_bangs |\
    dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
-   xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO \
+   xargs -IBB -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO 'BB' \
   ", 
   winid
 };
