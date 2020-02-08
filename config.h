@@ -26,10 +26,7 @@ static char *piped_find[] = {
 };
 
 static char *piped_open[] = { "/bin/sh", "-c", 
-  "STRINGS=\"$(sed -e 's/<[^>]*>//g' | strings_extract.sh)\"
-   PARTS="$(urlparts $(xprop $(xdotool getactivewindow) | grep _SURF_URI | grep -oE '\".+\"'  | tr -d '\"'))"
-   BANGS=\"$(~/.ddg_bangs)\"
-   echo "$PARTS" "$STRINGS" "$BANGS" |\
+  "surf_urlbar_suggestions.sh $0 |\
    dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
    xargs -IBB -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO 'BB' \
   ", 
