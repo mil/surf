@@ -28,7 +28,7 @@ static char *piped_find[] = {
 static char *piped_open[] = { "/bin/sh", "-c", 
   "sed -e 's/<[^>]*>//g' |\
    strings_extract.sh |\
-   cat - ~/.ddg_bangs" |\
+   cat - ~/.ddg_bangs |\
    dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
    xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO \
   ", 
