@@ -41,7 +41,7 @@ static char *piped_opennew[] = { "/bin/sh", "-c",
    strings_extract.sh |\
    cat - ~/.ddg_bangs |\
    dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
-   xargs -IBB -r surf 'BB'
+   xargs -IBB -r surf 'BB' \
   ", 
   winid
 };
