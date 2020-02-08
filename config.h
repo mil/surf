@@ -16,11 +16,11 @@ static char *codeblock_yank[] =          { "/bin/sh", "-c", "surf_tagyank.sh $0 
 static char *string_yank[] = { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -p Copy -l 10 -i -w $(xdotool getactivewindow) | tr -d '\n' | y", winid };
 
 static char *piped_find[] = { 
-  "/bin/sh", "-c", "
-    sed -e 's/<[^>]*>//g' |\
-    strings_extract.sh |\
-    dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) |\
-    xargs -IBB -r xprop -id $0 -f _SURF_FIND 8s -set _SURF_FIND 'BB'
+  "/bin/sh", "-c",
+  "sed -e 's/<[^>]*>//g' |\
+   strings_extract.sh |\
+   dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) |\
+   xargs -IBB -r xprop -id $0 -f _SURF_FIND 8s -set _SURF_FIND 'BB'\
   ", 
   winid
 };
