@@ -36,7 +36,7 @@ static char *piped_open[] = { "/bin/sh", "-c",
 static char *piped_opennew[] = { "/bin/sh", "-c", 
   "surf_urlbar_suggestions.sh $0 |\
    dmenu -t -p 'Open (new window)' -l 10 -i -w $(xdotool getactivewindow) |\
-   xargs -IBB -r surf 'BB'
+   xargs -IBB -r surf 'BB' \
   ", 
   winid
 };
