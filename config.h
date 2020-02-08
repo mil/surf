@@ -34,11 +34,9 @@ static char *piped_open[] = { "/bin/sh", "-c",
 };
 
 static char *piped_opennew[] = { "/bin/sh", "-c", 
-  "sed -e 's/<[^>]*>//g' |\
-   strings_extract.sh |\
-   cat - ~/.ddg_bangs |\
-   dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
-   xargs -IBB -r surf 'BB' \
+  "surf_urlbar_suggestions.sh $0 |\
+   dmenu -t -p 'Open (new window)' -l 10 -i -w $(xdotool getactivewindow) |\
+   xargs -IBB -r surf 'BB'
   ", 
   winid
 };
