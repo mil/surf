@@ -13,8 +13,40 @@ static char *linkselect_newwin [] =      { "/bin/sh", "-c", "surf_linkselect.sh 
 static char *linkselect_yank [] =        { "/bin/sh", "-c", "surf_linkselect.sh $0 'Link (yank)' | y", winid };
 static char *linkselect_urlhandler[] =   { "/bin/sh", "-c", "surf_linkselect.sh $0 'URL handler' | xargs -r urlhandler", winid };
 static char *codeblock_yank[] =          { "/bin/sh", "-c", "surf_tagyank.sh $0 'Codeblock'", winid };
-static char *string_yank[] =             { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -p Copy -l 10 -i -w $(xdotool getactivewindow) | tr -d '\n' | y", winid };
-static char *piped_find[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) | xargs -IBB -r xprop -id $0 -f _SURF_FIND 8s -set _SURF_FIND 'BB'", winid };
+static char *string_yank[] = { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -p Copy -l 10 -i -w $(xdotool getactivewindow) | tr -d '\n' | y", winid };
+
+static char *piped_find[] = { 
+  "/bin/sh", "-c",
+  "sed -e 's/<[^>]*>//g' |\
+   strings_extract.sh |\
+   dmenu -t -p Find -l 10 -i -w $(xdotool getactivewindow) |\
+   xargs -IBB -r xprop -id $0 -f _SURF_FIND 8s -set _SURF_FIND 'BB'\
+  ", 
+  winid
+};
+
+static char *piped_open[] = { "/bin/sh", "-c", 
+  "surf_urlbar_suggestions.sh $0 |\
+   dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
+   xargs -IBB -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO 'BB' \
+  ", 
+  winid
+};
+
+static char *piped_opennew[] = { "/bin/sh", "-c", 
+  "surf_urlbar_suggestions.sh $0 |\
+   dmenu -t -p 'Open (new window)' -l 10 -i -w $(xdotool getactivewindow) |\
+   xargs -IBB -r surf 'BB' \
+  ", 
+  winid
+};
+
+static char *piped_command[] = { 
+  "/bin/sh", "-c",
+  "surf_pipehandle.sh", 
+  winid
+};
+
 static char *image_select[] =            { "/bin/sh", "-c", "surf_linkselect.sh $0 'Image (new window)' 'img' 'src' 'alt' | xargs -r surf", winid };
 
 /* Webkit default features */
@@ -209,8 +241,11 @@ static Key keys[] = {
 	/* modifier              keyval          function    arg */
 	{ GDK_CONTROL_MASK,                     GDK_KEY_l,      spawn,      SETPROP_URI("_SURF_URI", "_SURF_GO", PROMPT_GO) },
 
-	{ 0,                     GDK_KEY_o,      spawn,      SETPROP_URI("_SURF_URI", "_SURF_GO", PROMPT_GO) },
-	{ GDK_SHIFT_MASK|0,      GDK_KEY_o,      spawn,      SPAWN_NEW("_SURF_URI", "_SURF_GO", PROMPT_GONEW) },
+	{ 0,                     GDK_KEY_o,      externalpipe,      { .v = piped_open } },
+	{ GDK_SHIFT_MASK|0,      GDK_KEY_o,      externalpipe,      { .v = piped_opennew } },
+
+	{ 0,                     GDK_KEY_backslash,    externalpipe,      { .v = piped_command } },
+
 	//{ 0,                     GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 	{ 0,                     GDK_KEY_slash,      externalpipe, { .v = piped_find} },
 
@@ -273,7 +308,6 @@ static Key keys[] = {
 	{ GDK_SHIFT_MASK|0,	 GDK_KEY_y,      externalpipe, { .v = linkselect_yank } },
 
 	{ MODKEY|GDK_SHIFT_MASK,      GDK_KEY_i,      externalpipe, { .v = string_yank } },
-
 	{ MODKEY|GDK_SHIFT_MASK,      GDK_KEY_o,      externalpipe, { .v = image_select } },
 
 

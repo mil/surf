@@ -377,6 +377,8 @@ externalpipe(Client *c, const Arg *arg)
 		if (resource != NULL) {
 			webkit_web_resource_get_data(
 				resource, NULL, externalpipe_resource_done, arg);
+		} else {
+		  externalpipe_execute("", arg);
 		}
 	}
 }
