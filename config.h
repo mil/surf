@@ -20,8 +20,9 @@ static char *piped_open[] = { "/bin/sh", "-c",
   "sed -e 's/<[^>]*>//g' |\
    strings_extract.sh |\
    dmenu -t -p Open -l 10 -i -w $(xdotool getactivewindow) |\
-   xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO
-  ", winid
+   xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO \
+  ", 
+  winid
 };
 
 static char *piped_opennew[] =              { "/bin/sh", "-c", "sed -e 's/<[^>]*>//g' | strings_extract.sh | dmenu -t -p 'Open (new window)' -l 10 -i -w $(xdotool getactivewindow) | xargs -r surf", winid };
@@ -285,7 +286,6 @@ static Key keys[] = {
 	{ GDK_SHIFT_MASK|0,	 GDK_KEY_y,      externalpipe, { .v = linkselect_yank } },
 
 	{ MODKEY|GDK_SHIFT_MASK,      GDK_KEY_i,      externalpipe, { .v = string_yank } },
-
 	{ MODKEY|GDK_SHIFT_MASK,      GDK_KEY_o,      externalpipe, { .v = image_select } },
 
 
