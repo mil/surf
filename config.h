@@ -244,7 +244,7 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_o,      externalpipe,      { .v = piped_open } },
 	{ GDK_SHIFT_MASK|0,      GDK_KEY_o,      externalpipe,      { .v = piped_opennew } },
 
-	{ GDK_SHIFT_MASK|0,      GDK_KEY_backslash,    externalpipe,      { .v = piped_command } },
+	{ 0,                     GDK_KEY_backslash,    externalpipe,      { .v = piped_command } },
 
 	//{ 0,                     GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
 	{ 0,                     GDK_KEY_slash,      externalpipe, { .v = piped_find} },
